@@ -5,8 +5,7 @@ from flask import redirect, url_for, flash, request
 from flask_login import current_user
 from flask_admin import AdminIndexView, expose
 from flask_admin.contrib.sqla import ModelView
-from flask_admin.form import SecureForm
-from wtforms import PasswordField
+from wtforms import PasswordField, ValidationError
 from wtforms.validators import DataRequired, Length, EqualTo, Optional
 from werkzeug.security import generate_password_hash
 
@@ -28,7 +27,7 @@ class AdminAccessMixin:
         return redirect(url_for('auth.login', next=request.url))
 
 
-class BrightStartAdminIndexView(AdminAccessMixin, AdminIndexView):
+class DSscanAdminIndexView(AdminAccessMixin, AdminIndexView):
     """Custom Admin Index View with Statistics"""
     
     @expose('/')
@@ -86,7 +85,6 @@ class BrightStartAdminIndexView(AdminAccessMixin, AdminIndexView):
 
 class UserModelView(AdminAccessMixin, ModelView):
     """User management view"""
-    form_base_class = SecureForm
     
     # List view
     column_list = ['id', 'username', 'is_admin', 'created_at', 'last_login']
@@ -102,45 +100,87 @@ class UserModelView(AdminAccessMixin, ModelView):
         'is_admin': 'Admin',
         'created_at': 'Dibuat',
         'last_login': 'Login Terakhir',
-        'password': 'Password Baru',
+        'password': 'Password',
         'password_confirm': 'Konfirmasi Password'
     }
     
-    # Form configuration
-    form_excluded_columns = ['password_hash', 'predictions']
+    # Form configuration - exclude auto-managed fields
+    form_excluded_columns = ['password_hash', 'predictions', 'created_at', 'last_login']
     
     # Add password fields for create/edit
     form_extra_fields = {
-        'password': PasswordField('Password Baru', validators=[
-            Optional(),
-            Length(min=6, message='Password minimal 6 karakter')
-        ]),
-        'password_confirm': PasswordField('Konfirmasi Password', validators=[
-            EqualTo('password', message='Password tidak cocok')
-        ])
+        'password': PasswordField('Password'),
+        'password_confirm': PasswordField('Konfirmasi Password')
     }
-    
-    def on_model_change(self, form, model, is_created):
-        """Hash password when creating or updating user"""
-        if form.password.data:
-            model.password_hash = generate_password_hash(form.password.data)
-        elif is_created:
-            # Require password for new users
-            raise ValueError('Password wajib diisi untuk pengguna baru')
     
     def create_form(self, obj=None):
         """Override to make password required on create"""
         form = super().create_form(obj)
+        # Set validators for create form - password is required
         form.password.validators = [
             DataRequired(message='Password wajib diisi'),
             Length(min=6, message='Password minimal 6 karakter')
         ]
+        form.password_confirm.validators = [
+            DataRequired(message='Konfirmasi password wajib diisi'),
+            EqualTo('password', message='Password tidak cocok')
+        ]
         return form
+    
+    def edit_form(self, obj=None):
+        """Override to make password optional on edit"""
+        form = super().edit_form(obj)
+        # Set validators for edit form - password is optional
+        form.password.validators = [
+            Optional(),
+            Length(min=6, message='Password minimal 6 karakter')
+        ]
+        form.password_confirm.validators = [
+            EqualTo('password', message='Password tidak cocok')
+        ]
+        # Update label to indicate optional
+        form.password.label.text = 'Password Baru (kosongkan jika tidak ingin mengubah)'
+        return form
+    
+    def validate_form(self, form):
+        """Override to add logging for form validation"""
+        from flask import current_app
+        result = super().validate_form(form)
+        current_app.logger.info(f"validate_form result: {result}")
+        if not result:
+            current_app.logger.error(f"Form validation errors: {form.errors}")
+        return result
+    
+    def on_model_change(self, form, model, is_created):
+        """Hash password when creating or updating user"""
+        from flask import current_app
+        current_app.logger.info(f"on_model_change called: is_created={is_created}, username={model.username}")
+        
+        if form.password.data:
+            model.password_hash = generate_password_hash(form.password.data)
+            current_app.logger.info(f"Password hash set for user: {model.username}")
+        elif is_created:
+            # This should not happen due to form validation, but just in case
+            raise ValidationError('Password wajib diisi untuk pengguna baru')
+    
+    def create_model(self, form):
+        """Override to add logging"""
+        from flask import current_app
+        current_app.logger.info(f"create_model called with form data: {form.data}")
+        try:
+            model = super().create_model(form)
+            if model:
+                current_app.logger.info(f"User created successfully: {model.username}")
+            else:
+                current_app.logger.error("create_model returned None/False")
+            return model
+        except Exception as e:
+            current_app.logger.error(f"Error creating user: {str(e)}")
+            raise
 
 
 class PredictionModelView(AdminAccessMixin, ModelView):
     """Prediction records view (read-only)"""
-    form_base_class = SecureForm
     
     # Disable create and edit
     can_create = False

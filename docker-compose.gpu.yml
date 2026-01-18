@@ -1,15 +1,15 @@
-# BrightStart - Docker Compose (GPU)
+# DSscan - Docker Compose (GPU)
 # For deployment with NVIDIA GPU support
 # Requires: NVIDIA Container Toolkit
 
 version: '3.8'
 
 services:
-  brightstart-gpu:
+  dsscan-gpu:
     build:
       context: .
       dockerfile: Dockerfile.gpu
-    container_name: brightstart-gpu
+    container_name: dsscan-gpu
     restart: unless-stopped
     ports:
       - "5000:5000"

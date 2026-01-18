@@ -1,14 +1,14 @@
-# BrightStart - Docker Compose (CPU)
+# DSscan - Docker Compose (CPU)
 # For deployment without GPU support
 
 version: '3.8'
 
 services:
-  brightstart:
+  dsscan:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: brightstart-cpu
+    container_name: dsscan-cpu
     restart: unless-stopped
     ports:
       - "5000:5000"

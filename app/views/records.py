@@ -174,7 +174,7 @@ def download_selected():
         memory_file,
         mimetype='application/zip',
         as_attachment=True,
-        download_name=f'brightstart_images_{timestamp}.zip'
+        download_name=f'dsscan_images_{timestamp}.zip'
     )
 
 
@@ -235,7 +235,7 @@ def download_all():
         memory_file,
         mimetype='application/zip',
         as_attachment=True,
-        download_name=f'brightstart_all_images_{timestamp}.zip'
+        download_name=f'dsscan_all_images_{timestamp}.zip'
     )
 
 

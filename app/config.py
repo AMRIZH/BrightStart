@@ -1,5 +1,5 @@
 """
-BrightStart Configuration Module
+DSscan Configuration Module
 """
 import os
 from datetime import timedelta
@@ -19,7 +19,7 @@ class Config:
     # Database - use absolute path
     SQLALCHEMY_DATABASE_URI = os.environ.get(
         'DATABASE_URL', 
-        f'sqlite:///{os.path.join(BASE_DIR, "instance", "brightstart.db")}'
+        f'sqlite:///{os.path.join(BASE_DIR, "instance", "dsscan.db")}'
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
@@ -53,9 +53,9 @@ class Config:
     WTF_CSRF_TIME_LIMIT = 3600
     CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in os.environ.get('CSRF_TRUSTED_ORIGINS', '').split(',') if origin.strip()]
     
-    # Logging - always use logs/brightstart.log
+    # Logging - always use logs/dsscan.log
     LOG_LEVEL = os.environ.get('LOG_LEVEL', 'DEBUG')
-    LOG_FILE = os.path.join(BASE_DIR, 'logs', 'brightstart.log')
+    LOG_FILE = os.path.join(BASE_DIR, 'logs', 'dsscan.log')
 
 
 class DevelopmentConfig(Config):

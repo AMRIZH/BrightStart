@@ -1,4 +1,4 @@
-# BrightStart - CPU Dockerfile
+# DSscan - CPU Dockerfile
 # For deployment without GPU support
 
 FROM python:3.11-slim

@@ -1,4 +1,4 @@
-# BrightStart
+# DSscan
 
 <p align="center">
   <img src="https://img.shields.io/badge/Python-3.11+-blue.svg" alt="Python">
@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
 </p>
 
-**BrightStart** adalah aplikasi web berbasis Computer Vision untuk mendeteksi indikator **Sindrom Down** dari citra wajah menggunakan model Deep Learning.
+**DSscan** (Down Syndrome Scan) adalah aplikasi web berbasis Computer Vision untuk mendeteksi indikator **Sindrom Down** dari citra wajah menggunakan model Deep Learning.
 
 > ⚠️ **PENTING:** Aplikasi ini dibuat untuk **tujuan penelitian dan edukasi**. Hasil analisis **BUKAN merupakan diagnosis medis**. Untuk diagnosis yang akurat, selalu konsultasikan dengan dokter atau tenaga medis profesional.
 
@@ -86,8 +86,8 @@
 
 1. **Clone repository**
    ```bash
-   git clone https://github.com/username/brightstart.git
-   cd brightstart
+   git clone https://github.com/username/dsscan.git
+   cd dsscan
    ```
 
 2. **Buat virtual environment**
@@ -205,7 +205,7 @@ LOG_LEVEL=DEBUG
 ## 📁 Struktur Proyek
 
 ```
-brightstart/
+dsscan/
 ├── app/
 │   ├── __init__.py          # Application factory
 │   ├── config.py            # Configuration classes

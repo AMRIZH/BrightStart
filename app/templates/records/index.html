@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Rekam Data - BrightStart{% endblock %}
+{% block title %}Rekam Data - DSscan{% endblock %}
 
 {% block extra_css %}
 <style>
@@ -349,7 +349,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'brightstart_selected_images.zip';
+            a.download = 'dsscan_selected_images.zip';
             document.body.appendChild(a);
             a.click();
             window.URL.revokeObjectURL(url);

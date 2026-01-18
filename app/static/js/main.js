@@ -1,5 +1,5 @@
 /**
- * BrightStart - Main JavaScript
+ * DSscan - Main JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', function() {

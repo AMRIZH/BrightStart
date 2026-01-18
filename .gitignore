@@ -101,6 +101,5 @@ models/*.pb
 Thumbs.db
 ehthumbs.db
 
-# Prompt files (development only)
-prompt.md
-prompt.txt
+# development file
+docs/

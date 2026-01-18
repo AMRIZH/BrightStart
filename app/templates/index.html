@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}BrightStart - Deteksi Sindrom Down{% endblock %}
+{% block title %}DSscan - Deteksi Sindrom Down{% endblock %}
 
 {% block content %}
 <!-- Hero Section - No gap with navbar -->
@@ -17,7 +17,7 @@
                         Deteksi <span class="text-primary">Sindrom Down</span> dengan Teknologi AI
                     </h1>
                     <p class="lead text-muted mb-4">
-                        BrightStart menggunakan teknologi Computer Vision dan Deep Learning untuk membantu 
+                        DSscan menggunakan teknologi Computer Vision dan Deep Learning untuk membantu 
                         mendeteksi indikator Sindrom Down dari citra wajah secara cepat dan akurat.
                     </p>
                     <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center justify-content-lg-start">
@@ -40,8 +40,8 @@
                 <div class="hero-image text-center">
                     <div class="hero-card bg-white rounded-4 shadow-lg p-4 mx-auto" style="max-width: 400px;">
                         <div class="hero-icon mb-3">
-                            <div class="icon-circle bg-primary-subtle mx-auto">
-                                <i class="bi bi-heart-pulse text-primary display-4"></i>
+                            <div class="mx-auto text-center">
+                                <img src="{{ url_for('static', filename='images/icon-192.png') }}" alt="DSscan Logo" height="100">
                             </div>
                         </div>
                         <h4 class="fw-bold mb-2">Analisis Cepat</h4>
@@ -176,7 +176,7 @@
                         <div>
                             <h5 class="alert-heading fw-bold mb-2">Penting untuk Diketahui</h5>
                             <p class="mb-2">
-                                BrightStart adalah aplikasi untuk <strong>tujuan penelitian dan edukasi</strong>. 
+                                DSscan adalah aplikasi untuk <strong>tujuan penelitian dan edukasi</strong>. 
                                 Hasil analisis dari aplikasi ini <strong>BUKAN merupakan diagnosis medis</strong>.
                             </p>
                             <p class="mb-0 small">
@@ -194,7 +194,7 @@
 <section class="cta-section py-5 bg-primary text-white">
     <div class="container text-center py-4">
         <h2 class="fw-bold mb-3">Siap Mencoba?</h2>
-        <p class="lead mb-4">Mulai analisis gambar Anda sekarang dengan BrightStart</p>
+        <p class="lead mb-4">Mulai analisis gambar Anda sekarang dengan DSscan</p>
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('dashboard.index') }}" class="btn btn-light btn-lg px-5">
             <i class="bi bi-speedometer2 me-2"></i>Buka Dashboard

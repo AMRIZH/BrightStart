@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="BrightStart - Aplikasi Deteksi Sindrom Down menggunakan Computer Vision">
+    <meta name="description" content="DSscan - Aplikasi Deteksi Sindrom Down menggunakan Computer Vision">
     <meta name="author" content="Informatika UMS - 2026">
     
-    <title>{% block title %}BrightStart{% endblock %}</title>
+    <title>{% block title %}DSscan{% endblock %}</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
-    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/web.png') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+    <meta name="theme-color" content="#0d6efd">
     
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,8 +36,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('main.index') }}">
-                <i class="bi bi-heart-pulse-fill me-2"></i>
-                <span class="fw-bold">BrightStart</span>
+                <img src="{{ url_for('static', filename='images/icon-192.png') }}" alt="DSscan Logo" height="32" class="me-2">
+                <span class="fw-bold">DSscan</span>
             </a>
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -133,7 +138,7 @@
                 <div class="col-lg-4 text-center text-lg-start mb-2 mb-lg-0">
                     <span class="d-flex align-items-center justify-content-center justify-content-lg-start">
                         <i class="bi bi-heart-pulse-fill text-primary me-2"></i>
-                        <strong>BrightStart</strong>
+                        <strong>DSscan</strong>
                     </span>
                 </div>
                 <div class="col-lg-8 text-center text-lg-end">

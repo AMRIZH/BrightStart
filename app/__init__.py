@@ -1,5 +1,5 @@
 """
-BrightStart - Flask Application Factory
+DSscan - Flask Application Factory
 Medical Computer Vision Application for Down Syndrome Detection
 Created by Informatika UMS - 2026
 """
@@ -52,7 +52,7 @@ def create_app(config_name=None):
     # Preload ML model at startup
     preload_model(app)
     
-    app.logger.info('BrightStart application started successfully')
+    app.logger.info('DSscan application started successfully')
     
     return app
 
@@ -147,7 +147,7 @@ def setup_admin(app):
     from flask_admin import Admin
     from flask_admin.theme import Bootstrap4Theme
     from .admin.views import (
-        BrightStartAdminIndexView,
+        DSscanAdminIndexView,
         UserModelView,
         PredictionModelView
     )
@@ -156,13 +156,16 @@ def setup_admin(app):
     
     admin = Admin(
         app,
-        name='BrightStart Admin',
+        name='DSscan Admin',
         theme=Bootstrap4Theme(swatch='default'),
-        index_view=BrightStartAdminIndexView(name='Beranda', url='/admin')
+        index_view=DSscanAdminIndexView(name='Beranda', url='/admin')
     )
     
     admin.add_view(UserModelView(User, db.session, name='Pengguna', endpoint='admin_users'))
     admin.add_view(PredictionModelView(Prediction, db.session, name='Prediksi', endpoint='admin_predictions'))
+    
+    # Exempt Flask-Admin blueprint from CSRF (Flask-Admin handles CSRF internally)
+    csrf.exempt(admin.index_view.blueprint)
 
 
 def create_default_admin(app):

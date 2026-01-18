@@ -1,4 +1,4 @@
-# BrightStart - GPU Dockerfile
+# DSscan - GPU Dockerfile
 # For deployment with NVIDIA GPU support
 
 FROM tensorflow/tensorflow:2.15.0-gpu

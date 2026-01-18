@@ -1,5 +1,5 @@
 /**
- * BrightStart - Dashboard JavaScript
+ * DSscan - Dashboard JavaScript
  * Handles file upload, camera capture, and prediction
  */
 
